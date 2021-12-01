@@ -1,5 +1,5 @@
-import { Day } from "../models/types"
-import { inputToInt } from "../utils/util"
+import { Day } from "../../models/types"
+import { inputToInt } from "../../utils/util"
 
 export default {
     solvePartOne: (input: string[]): string => {

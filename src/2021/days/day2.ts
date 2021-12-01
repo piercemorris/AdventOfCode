@@ -1,4 +1,4 @@
-import { Day } from "../models/types"
+import { Day } from "../../models/types"
 
 export default {
     solvePartOne: (input: string[]): string => {
