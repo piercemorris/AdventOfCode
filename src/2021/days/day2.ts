@@ -34,7 +34,6 @@ export default {
                 aim -= parseInt(section[1])
             }
         }
-        console.log(depth, horizontal)
         return (depth*horizontal).toString()
     }
 } as Day
