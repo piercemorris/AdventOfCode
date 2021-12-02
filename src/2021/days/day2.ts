@@ -15,7 +15,6 @@ export default {
                 depth -= parseInt(section[1])
             }
         }
-        console.log(depth, horizontal)
         return (depth*horizontal).toString()
     },
     solvePartTwo: (input: string[]): string => {
