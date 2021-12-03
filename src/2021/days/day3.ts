@@ -24,6 +24,48 @@ export default {
         return (gamma*epsilon).toString()
     },
     solvePartTwo: (input: string[]): string => {
-        return ''
+        const oxygenGeneratorRating = convertToDecimal(findRating(input, Mode.common))
+        const co2ScrubberRating = convertToDecimal(findRating(input, Mode.least_common))
+        return (oxygenGeneratorRating * co2ScrubberRating).toString()
     }
 } as Day
+
+enum Mode {
+    common,
+    least_common
+}
+
+function findRating(setBinaries: string[], mode: Mode): string {
+    let binaries = setBinaries
+    let binariesLength = setBinaries.length
+    let bitLength = setBinaries[0].length
+
+    for (let bitIndex = 0; bitIndex < bitLength-1; bitIndex++) {
+        let count = 0
+
+        if (binariesLength === 1) return binaries[0]
+
+        for(let binaryIndex = 0; binaryIndex < binariesLength; binaryIndex++) {
+            binaries[binaryIndex][bitIndex] === '1' ? count++ : count-- 
+        }
+
+        let target = ''
+        if (mode === Mode.common) {
+            count >= 0 ? target = '1' : target = '0'
+            binaries = filter(binaries, bitIndex, target, mode)
+        } else {
+            count >= 0 ? target = '0' : target = '1'
+            binaries = filter(binaries, bitIndex, target, mode)
+        }
+        binariesLength = binaries.length
+    }
+    return binaries[0]
+}
+
+function filter(numbers: string[], position: number, value: string, mode: Mode): string[] {
+    return numbers.filter(binary => binary[position] === value)
+}
+
+function convertToDecimal(binary: string): number {
+    return parseInt(binary, 2)
+}
