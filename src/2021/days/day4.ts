@@ -7,8 +7,7 @@ type Bingo = {
 
 export default {
     solvePartOne: (input: string[]): string => {
-        const data = decodeInput(input)
-        console.log(data)
+        const { drawnNumbers, boards } = decodeInput(input)
         return ''
     },
     solvePartTwo: (input: string[]): string => {
