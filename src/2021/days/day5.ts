@@ -19,7 +19,6 @@ export default {
     solvePartOne: (input: string[]): string => {
         const coordData = formatInput(input)
         let grid = new Array(BaseCoords.maxX*BaseCoords.maxY).fill(0)
-        console.log(grid.length)
         let currentCoord = []
         let verticalLines = 0
         let horizontalLines = 0
@@ -37,8 +36,7 @@ export default {
 
         }
 
-        console.log(`Vertical lines ${verticalLines}, horizontal lines ${horizontalLines}`)
-        writeGridToFile(grid)
+        // writeGridToFile(grid)
         return determineDangerousHydrothermalVents(grid).toString()
     },
     solvePartTwo: (input: string[]): string => {
@@ -57,7 +55,6 @@ function determineDangerousHydrothermalVents(grid: number[]) {
 }
 
 function mapHorizontalLine(coords: number[], grid: number[]): number[] {
-    // horizontal, y constant, x variable
     const updatedGrid = [...grid]
     const determineIterations = Math.abs((coords[Coords.x2] - coords[Coords.x])) + 1
     const smallX = Math.min(coords[Coords.x], coords[Coords.x2])
@@ -70,7 +67,6 @@ function mapHorizontalLine(coords: number[], grid: number[]): number[] {
 }
 
 function mapVerticalLine(coords: number[], grid: number[]): number[] {
-    // vertical, x constant, y variable
     const updatedGrid = [...grid]
     const determineIterations = Math.abs((coords[Coords.y2] - coords[Coords.y])) + 1
     const smallY = Math.min(coords[Coords.y], coords[Coords.y2])
