@@ -20,27 +20,37 @@ export default {
         const coordData = formatInput(input)
         let grid = new Array(BaseCoords.maxX*BaseCoords.maxY).fill(0)
         let currentCoord = []
-        let verticalLines = 0
-        let horizontalLines = 0
 
         for (let coordIndex = 0; coordIndex < coordData.length; coordIndex++) {
             currentCoord = coordData[coordIndex]
 
             if (currentCoord[Coords.x] === currentCoord[Coords.x2]) {
-                verticalLines += 1
                 grid = mapVerticalLine(currentCoord, grid)
             } else if (currentCoord[Coords.y] === currentCoord[Coords.y2]) {
-                horizontalLines += 1
                 grid = mapHorizontalLine(currentCoord, grid)
-            } 
-
+            }
         }
-
-        // writeGridToFile(grid)
+        writeGridToFile(grid)
         return determineDangerousHydrothermalVents(grid).toString()
     },
     solvePartTwo: (input: string[]): string => {
-        return ''
+        const coordData = formatInput(input)
+        let grid = new Array(BaseCoords.maxX*BaseCoords.maxY).fill(0)
+        let currentCoord = []
+
+        for (let coordIndex = 0; coordIndex < coordData.length; coordIndex++) {
+            currentCoord = coordData[coordIndex]
+
+            if (currentCoord[Coords.x] === currentCoord[Coords.x2]) {
+                grid = mapVerticalLine(currentCoord, grid)
+            } else if (currentCoord[Coords.y] === currentCoord[Coords.y2]) {
+                grid = mapHorizontalLine(currentCoord, grid)
+            } else {
+                grid = mapDiagonalLine(currentCoord, grid)
+            }
+        }
+        writeGridToFile(grid)
+        return determineDangerousHydrothermalVents(grid).toString()
     }
 } as Day
 
@@ -52,6 +62,32 @@ function writeGridToFile(grid: number[]) { // testing purposes
 
 function determineDangerousHydrothermalVents(grid: number[]) {
     return grid.filter(dangerValue => dangerValue > 1).length
+}
+
+function mapDiagonalLine(coords: number[], grid: number[]): number[] {
+    let updatedGrid = [...grid]
+    const iterations = Math.abs((coords[Coords.x2] - coords[Coords.x])) + 1
+    const isGrowingXPlane = coords[Coords.x] < coords[Coords.x2]
+    const isGrowingYPlane = coords[Coords.y] < coords[Coords.y2]
+
+    if (isGrowingXPlane && isGrowingYPlane) {
+        updatedGrid = mapLine(iterations, coords, 1, 1, updatedGrid)
+    } else if (!isGrowingXPlane && isGrowingYPlane) {
+        updatedGrid = mapLine(iterations, coords, -1, 1, updatedGrid)
+    } else if (isGrowingYPlane && !isGrowingYPlane) {
+        updatedGrid = mapLine(iterations, coords, 1, -1, updatedGrid)
+    } else if (!isGrowingYPlane && !isGrowingYPlane) {
+        updatedGrid = mapLine(iterations, coords, -1, -1, updatedGrid)
+    }
+    return updatedGrid
+}
+
+function mapLine(iterations: number, coords: number[], xOrientation: number, yOritentation: number, grid: number[]): number[] { 
+    const updatedGrid = [...grid]
+    for (let i = 0; i < iterations; i++) {
+        updatedGrid[determineHydrothermalVent(coords[Coords.x] + i*xOrientation, coords[Coords.y] + i*yOritentation)] += 1
+    }
+    return updatedGrid
 }
 
 function mapHorizontalLine(coords: number[], grid: number[]): number[] {
