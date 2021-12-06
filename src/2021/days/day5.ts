@@ -49,7 +49,7 @@ export default {
                 grid = mapDiagonalLine(currentCoord, grid)
             }
         }
-        writeGridToFile(grid)
+        // writeGridToFile(grid)
         return determineDangerousHydrothermalVents(grid).toString()
     }
 } as Day
