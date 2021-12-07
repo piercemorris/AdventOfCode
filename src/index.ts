@@ -10,5 +10,5 @@ async function solveForDay(day: number, year: number): Promise<void> {
     console.log(`Part 2: ${partTwoAnswer}`)
 }
 const year = 2021
-const day = 5
+const day = 6
 solveForDay(day, year)
