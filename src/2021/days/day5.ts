@@ -15,6 +15,11 @@ enum BaseCoords {
     maxY = 1000
 }
 
+enum Orien {
+    pos = 1,
+    neg = -1
+}
+
 export default {
     solvePartOne: (input: string[]): string => {
         const coordData = formatInput(input)
@@ -30,7 +35,7 @@ export default {
                 grid = mapHorizontalLine(currentCoord, grid)
             }
         }
-        writeGridToFile(grid)
+        // writeGridToFile(grid)
         return determineDangerousHydrothermalVents(grid).toString()
     },
     solvePartTwo: (input: string[]): string => {
@@ -71,18 +76,18 @@ function mapDiagonalLine(coords: number[], grid: number[]): number[] {
     const isGrowingYPlane = coords[Coords.y] < coords[Coords.y2]
 
     if (isGrowingXPlane && isGrowingYPlane) {
-        updatedGrid = mapLine(iterations, coords, 1, 1, updatedGrid)
+        updatedGrid = mapLine(iterations, coords, Orien.pos, Orien.pos, updatedGrid)
     } else if (!isGrowingXPlane && isGrowingYPlane) {
-        updatedGrid = mapLine(iterations, coords, -1, 1, updatedGrid)
-    } else if (isGrowingYPlane && !isGrowingYPlane) {
-        updatedGrid = mapLine(iterations, coords, 1, -1, updatedGrid)
+        updatedGrid = mapLine(iterations, coords, Orien.neg, Orien.pos, updatedGrid)
+    } else if (isGrowingXPlane && !isGrowingYPlane) {
+        updatedGrid = mapLine(iterations, coords, Orien.pos, Orien.neg, updatedGrid)
     } else if (!isGrowingYPlane && !isGrowingYPlane) {
-        updatedGrid = mapLine(iterations, coords, -1, -1, updatedGrid)
+        updatedGrid = mapLine(iterations, coords, Orien.neg, Orien.neg, updatedGrid)
     }
     return updatedGrid
 }
 
-function mapLine(iterations: number, coords: number[], xOrientation: number, yOritentation: number, grid: number[]): number[] { 
+function mapLine(iterations: number, coords: number[], xOrientation: Orien, yOritentation: Orien, grid: number[]): number[] { 
     const updatedGrid = [...grid]
     for (let i = 0; i < iterations; i++) {
         updatedGrid[determineHydrothermalVent(coords[Coords.x] + i*xOrientation, coords[Coords.y] + i*yOritentation)] += 1
