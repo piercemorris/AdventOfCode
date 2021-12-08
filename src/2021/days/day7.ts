@@ -9,7 +9,10 @@ export default {
     solvePartTwo: (input: string[]): string => {
         const positions = formatInput(input)
         const averageCrabPosition = calculateAverageCrabPosition(positions)
-        return calculateIncreasingFuelCost(positions, averageCrabPosition).toString()
+        let averages = [averageCrabPosition-1, averageCrabPosition, averageCrabPosition+1]
+        averages = averages.map(average => calculateIncreasingFuelCost(positions, average))
+        
+        return averages.join(",")
     }
 } as Day
 
