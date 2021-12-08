@@ -11,3 +11,7 @@ export function readFileForDay(dayNumber: number): string[] {
 export function inputToInt(input: string[]): number[] {
     return input.map(val => parseInt(val))
 }
+
+export function typedKeys<T>(o: T): (keyof T)[] {
+    return Object.keys(o) as (keyof T)[];
+}
