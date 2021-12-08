@@ -11,7 +11,6 @@ export default {
         const averageCrabPosition = calculateAverageCrabPosition(positions)
         let averages = [averageCrabPosition-1, averageCrabPosition, averageCrabPosition+1]
         averages = averages.map(average => calculateIncreasingFuelCost(positions, average))
-        
         return averages.join(",")
     }
 } as Day
