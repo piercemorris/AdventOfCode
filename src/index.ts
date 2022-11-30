@@ -9,6 +9,6 @@ async function solveForDay(day: number, year: number): Promise<void> {
     const partTwoAnswer = solution.solvePartTwo(input)
     console.log(`Part 2: ${partTwoAnswer}`)
 }
-const year = 2021
-const day = 8
+const year = 2022
+const day = 1
 solveForDay(day, year)

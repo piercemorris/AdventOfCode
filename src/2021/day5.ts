@@ -1,5 +1,5 @@
 import fs = require('fs')
-import { Day } from "../../models/types"
+import { Day } from "../models/types"
 
 enum Coords {
     x,

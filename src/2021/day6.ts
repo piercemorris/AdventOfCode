@@ -1,4 +1,4 @@
-import { Day } from "../../models/types"
+import { Day } from "../models/types"
 
 type StateMap = {
     '0': number,
