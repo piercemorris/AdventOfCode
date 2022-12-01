@@ -2,7 +2,7 @@ import { readFileForDay } from './utils/util'
 
 async function solveForDay(day: number, year: number): Promise<void> {
     const input = readFileForDay(day)
-    const { default: solution } = await import(`./${year}/days/day${day}`)
+    const { default: solution } = await import(`./${year}/day${day}`)
 
     const partOneAnswer = solution.solvePartOne(input)
     console.log(`Part 1: ${partOneAnswer}`)

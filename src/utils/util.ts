@@ -5,7 +5,7 @@ export function readFile(fileName: string): string[] {
 }
 
 export function readFileForDay(dayNumber: number): string[] {
-    return readFile(`data/2021/day${dayNumber}/input.txt`)
+    return readFile(`data/2022/day${dayNumber}/input.txt`)
 }
 
 export function inputToInt(input: string[]): number[] {
