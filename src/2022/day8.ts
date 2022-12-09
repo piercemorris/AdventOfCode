@@ -96,7 +96,6 @@ export default {
 
       for (var col = 0; col < currentRow.length; col++) {
         const currentTreeHeight = currentRow[col]
-        // console.log(`new coord ${row},${col}, ${currentRow[col]}`)
         let scoreL = 0
         let scoreR = 0
         let scoreT = 0
@@ -108,22 +107,17 @@ export default {
           if (currentRow[left] >= currentTreeHeight) break
         }
 
-        console.log(scoreL);
-        
-
         // right
         for (var right = col+1; right < treeGrid.length; right++) {
           scoreR++
           if (currentRow[right] >= currentTreeHeight) break
         }
-        console.log(scoreR);
 
         // top
         for (var top = row-1; top >= 0; top--) {
           scoreT++
           if (treeGrid[top].split('')[col] >= currentTreeHeight) break
         }
-        console.log(scoreT);
 
         // bottom
         for (var bot = row+1; bot < treeGrid.length; bot++) {
@@ -131,22 +125,14 @@ export default {
           if (treeGrid[bot].split('')[col] >= currentTreeHeight) break
         }
 
-        console.log(scoreB);
-
-
         let total = scoreL * scoreR * scoreT * scoreB
 
         rowScenicScores.push(total)
-
-        // console.log(total)
         highestScenicScore = total > highestScenicScore ? total : highestScenicScore
       }
 
       scenicScores.push(rowScenicScores)
     } 
-
-    console.log(scenicScores.map(row => row.map(ss => String(ss)).join(" ")).join("\n\n"));
-    
 
     return highestScenicScore
   }
