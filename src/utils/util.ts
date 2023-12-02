@@ -4,8 +4,8 @@ export function readFile(fileName: string): string[] {
     return fs.readFileSync(fileName, 'utf8').toString().split('\n')
 }
 
-export function readFileForDay(dayNumber: number): string[] {
-    return readFile(`data/2022/day${dayNumber}/input.txt`)
+export function readFileForDay(day: number, year: number): string[] {
+    return readFile(`data/${year}/day${day}/input.txt`)
 }
 
 export function inputToInt(input: string[]): number[] {
